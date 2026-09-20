@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMER POWER | Comunidad Dota 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dota-red': '#C23C2A',
+                        'dota-dark': '#1a1a1a',
+                        'dota-darker': '#111111',
+                        'dota-gold': '#D4AF37'
+                    },
+                    fontFamily: {
+                        'title': ['Cinzel', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #111111;
+            color: #e5e7eb;
+            /* Imagen de fondo con overlay oscuro para mantener la legibilidad */
+            background-image: linear-gradient(rgba(17, 17, 17, 0.85), rgba(20, 10, 10, 0.95)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(194, 60, 42, 0.7);
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+        .section-hidden {
+            display: none;
+        }
+        .section-active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .nav-link.active {
+            color: #C23C2A;
+            border-bottom: 2px solid #C23C2A;
+        }
+    </style>
+</head>
+<body class="font-body min-h-screen flex flex-col">
+
+    <header class="bg-dota-darker border-b border-dota-red/30 py-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showSection('inicio')">
+                <!-- A placeholder icon for the community logo -->
+                <div class="w-10 h-10 bg-dota-red rounded-full flex items-center justify-center text-white font-title font-bold text-xl shadow-lg text-glow">
+                    GP
+                </div>
+                <h1 class="text-2xl font-title font-bold text-white tracking-wider">GAMER <span class="text-dota-red">POWER</span></h1>
+            </div>
+            
+            <nav class="hidden md:flex gap-6 font-semibold tracking-wide">
+                <button onclick="showSection('inicio')" id="nav-inicio" class="nav-link active hover:text-dota-red transition-colors pb-1">INICIO</button>
+                <button onclick="showSection('noticias')" id="nav-noticias" class="nav-link hover:text-dota-red transition-colors pb-1">NOTICIAS</button>
+                <button onclick="showSection('eventos')" id="nav-eventos" class="nav-link hover:text-dota-red transition-colors pb-1">EVENTOS</button>
+                <button onclick="showSection('galeria')" id="nav-galeria" class="nav-link hover:text-dota-red transition-colors pb-1">GALERÍA</button>
+                <button onclick="showSection('comunidad')" id="nav-comunidad" class="nav-link hover:text-dota-red transition-colors pb-1">LA COMUNIDAD</button>
+            </nav>
+
+            <div class="hidden md:flex gap-4">
+                <button onclick="showSection('login')" class="text-sm px-4 py-2 hover:text-dota-gold transition-colors">INICIAR SESIÓN</button>
+                <button onclick="showSection('registro')" class="bg-dota-red text-white text-sm px-6 py-2 rounded font-bold hover:bg-red-700 transition-colors btn-glow">UNIRSE</button>
+            </div>
+
+            <!-- Mobile menu button -->
+            <button class="md:hidden text-gray-300 hover:text-white" onclick="toggleMobileMenu()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dota-dark absolute w-full left-0 top-full border-b border-gray-800">
+            <div class="flex flex-col p-4 gap-4 text-center">
+                <button onclick="showSection('inicio'); toggleMobileMenu()" class="hover:text-dota-red">Inicio</button>
+                <button onclick="showSection('noticias'); toggleMobileMenu()" class="hover:text-dota-red">Noticias</button>
+                <button onclick="showSection('eventos'); toggleMobileMenu()" class="hover:text-dota-red">Eventos</button>
+                <button onclick="showSection('galeria'); toggleMobileMenu()" class="hover:text-dota-red">Galería</button>
+                <button onclick="showSection('comunidad'); toggleMobileMenu()" class="hover:text-dota-red">La Comunidad</button>
+                <hr class="border-gray-800 my-2">
+                <button onclick="showSection('login'); toggleMobileMenu()" class="hover:text-dota-gold">Iniciar Sesión</button>
+                <button onclick="showSection('registro'); toggleMobileMenu()" class="text-dota-red font-bold">Unirse Ahora</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-12">
+        
+        <!-- SECTION: INICIO -->
+        <section id="section-inicio" class="section-active text-center max-w-4xl mx-auto">
+            <h2 class="text-5xl md:text-7xl font-title font-bold text-white mb-6 text-glow">DEFIENDE TU ANCESTRAL</h2>
+            <p class="text-xl md:text-2xl text-gray-400 mb-10 font-light">Únete a GAMER POWER, la comunidad definitiva de Dota 2 para jugadores de todos los niveles. Encuentra equipo, participa en torneos y mejora tu juego.</p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <button onclick="showSection('registro')" class="bg-dota-red text-white text-lg px-8 py-4 rounded font-bold hover:bg-red-700 transition-all btn-glow uppercase tracking-wider">
+                    Recluta tu Héroe (Registro)
+                </button>
+                <button onclick="showSection('eventos')" class="border border-dota-gold text-dota-gold text-lg px-8 py-4 rounded font-bold hover:bg-dota-gold hover:text-black transition-all uppercase tracking-wider">
+                    Ver Torneos
+                </button>
+            </div>
+
+            <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                <div class="bg-dota-dark p-6 rounded-lg border border-gray-800 hover:border-dota-red/50 transition-colors">
+                    <div class="text-dota-gold text-3xl mb-4">🏆</div>
+                    <h3 class="text-xl font-title font-bold text-white mb-2">Torneos Semanales</h3>
+                    <p class="text-gray-400 text-sm">Compite por premios, reconocimiento y la gloria en nuestros torneos organizados regulares.</p>
+                </div>
+                <div class="bg-dota-dark p-6 rounded-lg border border-gray-800 hover:border-dota-red/50 transition-colors">
+                    <div class="text-dota-gold text-3xl mb-4">🤝</div>
+                    <h3 class="text-xl font-title font-bold text-white mb-2">Encuentra Equipo</h3>
+                    <p class="text-gray-400 text-sm">Ya seas Support o Hard Carry, encuentra jugadores que se adapten a tu estilo de juego y horario.</p>
+                </div>
+                <div class="bg-dota-dark p-6 rounded-lg border border-gray-800 hover:border-dota-red/50 transition-colors">
+                    <div class="text-dota-gold text-3xl mb-4">📚</div>
+                    <h3 class="text-xl font-title font-bold text-white mb-2">Mejora tu MMR</h3>
+                    <p class="text-gray-400 text-sm">Comparte replays, discute el meta actual y recibe consejos de jugadores experimentados.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: EVENTOS -->
+        <section id="section-eventos" class="section-hidden max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-title font-bold text-white mb-4">PRÓXIMAS BATALLAS</h2>
+                <p class="text-gray-400">Prepara tus wards y tus TPs. Estos son los eventos venideros en Gamer Power.</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Event Card 1 -->
+                <div class="bg-dota-dark border-l-4 border-dota-red p-6 rounded shadow-md flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <span class="text-dota-gold text-sm font-bold tracking-wider uppercase mb-1 block">Torneo de Fin de Semana</span>
+                        <h3 class="text-2xl font-title text-white mb-2">Copa Aegis Noviembre</h3>
+                        <p class="text-gray-400 text-sm">Formato 5v5 Captains Mode. Solo equipos de la comunidad.</p>
+                    </div>
+                    <div class="text-center md:text-right">
+                        <p class="text-white font-bold mb-1">15 de Noviembre, 2026</p>
+                        <p class="text-gray-400 text-sm mb-3">20:00 EST</p>
+                        <button class="bg-gray-800 text-white px-4 py-2 rounded text-sm hover:bg-gray-700 transition-colors">Más Info</button>
+                    </div>
+                </div>
+
+                <!-- Event Card 2 -->
+                <div class="bg-dota-dark border-l-4 border-blue-500 p-6 rounded shadow-md flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <span class="text-blue-400 text-sm font-bold tracking-wider uppercase mb-1 block">Evento Casual</span>
+                        <h3 class="text-2xl font-title text-white mb-2">Noche de Ability Draft</h3>
+                        <p class="text-gray-400 text-sm">Relájate y ríete con las combinaciones de habilidades más absurdas.</p>
+                    </div>
+                    <div class="text-center md:text-right">
+                        <p class="text-white font-bold mb-1">22 de Noviembre, 2026</p>
+                        <p class="text-gray-400 text-sm mb-3">21:00 EST</p>
+                        <button class="bg-gray-800 text-white px-4 py-2 rounded text-sm hover:bg-gray-700 transition-colors">Más Info</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: NOTICIAS -->
+        <section id="section-noticias" class="section-hidden max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-title font-bold text-white mb-4 text-glow">MURO DE NOTICIAS</h2>
+                <p class="text-gray-400">Actualizaciones del juego, anuncios de la comunidad y discusiones del meta.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Noticia 1 -->
+                <article class="bg-dota-dark/80 p-6 rounded-lg border border-gray-800 hover:border-dota-red transition-colors backdrop-blur-md">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-dota-red text-white text-xs font-bold px-3 py-1 rounded uppercase tracking-wider">Parche 7.36</span>
+                        <span class="text-gray-400 text-xs">Hace 2 horas</span>
+                    </div>
+                    <h3 class="text-2xl font-title text-white mb-3">Análisis del nuevo parche: ¿El fin de los tanques?</h3>
+                    <p class="text-gray-300 text-sm mb-4 line-clamp-3">Nuestro equipo de analistas desglosa los cambios recientes en los objetos de reducción de armadura y cómo afectará esto a los offlaners (Pos 3) en nuestras próximas partidas de liga interna.</p>
+                    <button class="text-dota-gold hover:text-white font-semibold transition-colors text-sm uppercase tracking-wide">Leer análisis completo →</button>
+                </article>
+
+                <!-- Noticia 2 -->
+                <article class="bg-dota-dark/80 p-6 rounded-lg border border-gray-800 hover:border-dota-gold transition-colors backdrop-blur-md">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-dota-gold text-black text-xs font-bold px-3 py-1 rounded uppercase tracking-wider">Comunidad</span>
+                        <span class="text-gray-400 text-xs">Ayer</span>
+                    </div>
+                    <h3 class="text-2xl font-title text-white mb-3">¡Superamos los 500 miembros en Discord!</h3>
+                    <p class="text-gray-300 text-sm mb-4 line-clamp-3">Gracias a todos por hacer de Gamer Power una comunidad sana y sumamente competitiva. Para celebrarlo, estaremos sorteando 3 Arcanas de libre elección este fin de semana durante el stream.</p>
+                    <button class="text-dota-gold hover:text-white font-semibold transition-colors text-sm uppercase tracking-wide">Ver detalles del sorteo →</button>
+                </article>
+                
+                <!-- Noticia 3 (Destacada) -->
+                <article class="bg-dota-dark/80 p-6 rounded-lg border border-gray-800 hover:border-gray-400 transition-colors backdrop-blur-md md:col-span-2 flex flex-col md:flex-row gap-6 items-center">
+                    <div class="w-full md:w-1/3">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Trofeo" class="rounded-md w-full h-40 object-cover opacity-80">
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="bg-gray-700 text-white text-xs font-bold px-3 py-1 rounded uppercase tracking-wider">Esports / Torneos</span>
+                            <span class="text-gray-400 text-xs">Hace 3 días</span>
+                        </div>
+                        <h3 class="text-2xl font-title text-white mb-2">Resultados de la Copa Ancestral de Invierno</h3>
+                        <p class="text-gray-300 text-sm mb-4">Felicidades al equipo "Dire Dire Docks" por llevarse la victoria en una reñida Gran Final al mejor de 5 (BO5). Revisa los mejores momentos, estadísticas de los héroes más pickeados y entrevistas con los ganadores del torneo.</p>
+                        <button class="text-dota-gold hover:text-white font-semibold transition-colors text-sm uppercase tracking-wide">Ver resultados completos →</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SECTION: GALERÍA -->
+        <section id="section-galeria" class="section-hidden max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-title font-bold text-white mb-4 text-glow">GALERÍA DE BATALLAS</h2>
+                <p class="text-gray-400">Capturas épicas, Rampages memorables y momentos de nuestros miembros.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Imagen 1 -->
+                <div class="group relative overflow-hidden rounded-lg border-2 border-gray-800 hover:border-dota-red cursor-pointer shadow-lg bg-black">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Setup Torneo" class="w-full h-64 object-cover opacity-70 group-hover:opacity-100 transform group-hover:scale-110 transition-all duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div>
+                            <span class="text-dota-gold font-bold text-xs uppercase tracking-wider mb-1 block">Presencial</span>
+                            <span class="text-white font-title text-lg">Gran Final LAN 2025</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Imagen 2 -->
+                <div class="group relative overflow-hidden rounded-lg border-2 border-gray-800 hover:border-dota-red cursor-pointer shadow-lg bg-black">
+                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Setup Comunidad" class="w-full h-64 object-cover opacity-70 group-hover:opacity-100 transform group-hover:scale-110 transition-all duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div>
+                            <span class="text-dota-red font-bold text-xs uppercase tracking-wider mb-1 block">Comunidad</span>
+                            <span class="text-white font-title text-lg">Batallas Nocturnas</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Imagen 3 -->
+                <div class="group relative overflow-hidden rounded-lg border-2 border-gray-800 hover:border-dota-red cursor-pointer shadow-lg bg-black">
+                    <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Watch Party" class="w-full h-64 object-cover opacity-70 group-hover:opacity-100 transform group-hover:scale-110 transition-all duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div>
+                            <span class="text-dota-gold font-bold text-xs uppercase tracking-wider mb-1 block">The International</span>
+                            <span class="text-white font-title text-lg">Watch Party Local</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Imagen 4 (Ancha) -->
+                <div class="group relative overflow-hidden rounded-lg border-2 border-gray-800 hover:border-dota-red cursor-pointer shadow-lg bg-black sm:col-span-2 lg:col-span-2">
+                    <img src="https://images.unsplash.com/photo-1564049489314-60d154ff107d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Victoria Equipo" class="w-full h-64 object-cover opacity-70 group-hover:opacity-100 transform group-hover:scale-110 transition-all duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <span class="text-dota-red font-bold text-xs uppercase tracking-wider mb-1 block">Campeones</span>
+                            <span class="text-white font-title text-2xl">Victoria en el Torneo de Primavera</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Imagen 5 -->
+                <div class="group relative overflow-hidden rounded-lg border-2 border-gray-800 hover:border-dota-red cursor-pointer shadow-lg bg-black">
+                    <img src="https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Teclado" class="w-full h-64 object-cover opacity-70 group-hover:opacity-100 transform group-hover:scale-110 transition-all duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div>
+                            <span class="text-gray-400 font-bold text-xs uppercase tracking-wider mb-1 block">Setup</span>
+                            <span class="text-white font-title text-lg">Listos para el Ranked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: COMUNIDAD -->
+        <section id="section-comunidad" class="section-hidden max-w-3xl mx-auto">
+            <h2 class="text-4xl font-title font-bold text-white mb-8 text-center text-glow">SOBRE GAMER POWER</h2>
+            
+            <div class="bg-dota-dark p-8 rounded-lg border border-gray-800 prose prose-invert max-w-none">
+                <p class="text-lg text-gray-300 leading-relaxed mb-6">
+                    Nacimos en las trincheras de la línea de medio, con la visión de crear un espacio donde la toxicidad queda fuera y el verdadero espíritu competitivo de Dota 2 prospera. 
+                    <strong>Gamer Power</strong> no es solo un grupo, es un batallón de jugadores dedicados a mejorar, competir y, sobre todo, disfrutar del mejor MOBA jamás creado.
+                </p>
+                <p class="text-lg text-gray-300 leading-relaxed mb-6">
+                    Creemos firmemente en el respeto mutuo, el aprendizaje continuo y la gloria de una victoria bien coordinada (o la dignidad en una derrota luchada hasta el final).
+                </p>
+                
+                <h3 class="text-2xl font-title text-dota-gold mt-8 mb-4">Nuestros Valores</h3>
+                <ul class="list-disc list-inside text-gray-300 space-y-2 mb-8">
+                    <li><strong>Respeto:</strong> Cero tolerancia a la toxicidad. Jugamos para divertirnos y ganar, no para insultar.</li>
+                    <li><strong>Trabajo en Equipo:</strong> Dota 2 es un juego de 5. Fomentamos la comunicación y la coordinación.</li>
+                    <li><strong>Mejora:</strong> Todos empezamos siendo Heraldos en algún momento. Ayudamos a nuestros miembros a entender mejor el juego.</li>
+                </ul>
+
+                <div class="text-center mt-10 p-6 bg-black/50 rounded-lg border border-dota-red/20">
+                    <p class="text-xl text-white font-title mb-4">¿Listo para unirte a nuestras filas?</p>
+                    <p class="text-sm text-gray-400 mb-4">Únete a nuestro servidor de Discord, es nuestro cuartel general principal.</p>
+                    <a href="#" class="inline-block bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold py-3 px-6 rounded transition-colors">
+                        Unirse al Discord
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: LOGIN -->
+        <section id="section-login" class="section-hidden max-w-md mx-auto">
+            <div class="bg-dota-dark p-8 rounded-lg border border-gray-800 shadow-xl">
+                <h2 class="text-3xl font-title font-bold text-white mb-6 text-center">INICIAR SESIÓN</h2>
+                <form onsubmit="event.preventDefault(); alert('Simulación de inicio de sesión. Aquí conectarías tu sistema real.');">
+                    <div class="mb-4">
+                        <label class="block text-gray-400 text-sm font-bold mb-2" for="login-email">
+                            Correo Electrónico
+                        </label>
+                        <input class="w-full bg-gray-900 border border-gray-700 text-white rounded py-3 px-4 focus:outline-none focus:border-dota-red transition-colors" id="login-email" type="email" placeholder="midplayer@ejemplo.com" required>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-400 text-sm font-bold mb-2" for="login-password">
+                            Contraseña
+                        </label>
+                        <input class="w-full bg-gray-900 border border-gray-700 text-white rounded py-3 px-4 focus:outline-none focus:border-dota-red transition-colors" id="login-password" type="password" placeholder="********" required>
+                    </div>
+                    <div class="flex items-center justify-between mb-6">
+                        <label class="flex items-center text-sm text-gray-400">
+                            <input type="checkbox" class="mr-2 border-gray-700 rounded bg-gray-900"> Recordarme
+                        </label>
+                        <a class="inline-block align-baseline font-bold text-sm text-dota-gold hover:text-white" href="#">
+                            ¿Olvidaste tu contraseña?
+                        </a>
+                    </div>
+                    <button class="w-full bg-dota-red hover:bg-red-700 text-white font-bold py-3 px-4 rounded transition-colors btn-glow" type="submit">
+                        Entrar a la Batalla
+                    </button>
+                    <p class="text-center text-sm text-gray-500 mt-6">
+                        ¿Aún no tienes cuenta? <button type="button" onclick="showSection('registro')" class="text-dota-red hover:text-white font-bold">Regístrate aquí</button>
+                    </p>
+                </form>
+            </div>
+        </section>
+
+        <!-- SECTION: REGISTRO -->
+        <section id="section-registro" class="section-hidden max-w-md mx-auto">
+            <div class="bg-dota-dark p-8 rounded-lg border border-gray-800 shadow-xl">
+                <h2 class="text-3xl font-title font-bold text-white mb-2 text-center text-glow">ALÍSTATE</h2>
+                <p class="text-center text-gray-400 text-sm mb-6">Crea tu perfil en Gamer Power</p>
+                <form onsubmit="event.preventDefault(); alert('Simulación de registro. Aquí guardarías los datos del usuario.');">
+                    <div class="mb-4">
+                        <label class="block text-gray-400 text-sm font-bold mb-2" for="reg-username">
+                            Nombre de Usuario (IGN)
+                        </label>
+                        <input class="w-full bg-gray-900 border border-gray-700 text-white rounded py-3 px-4 focus:outline-none focus:border-dota-red transition-colors" id="reg-username" type="text" placeholder="Ej: Dendi" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-400 text-sm font-bold mb-2" for="reg-email">
+                            Correo Electrónico
+                        </label>
+                        <input class="w-full bg-gray-900 border border-gray-700 text-white rounded py-3 px-4 focus:outline-none focus:border-dota-red transition-colors" id="reg-email" type="email" placeholder="tu@correo.com" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-400 text-sm font-bold mb-2" for="reg-role">
+                            Rol Principal
+                        </label>
+                        <div class="relative">
+                            <select class="w-full bg-gray-900 border border-gray-700 text-white rounded py-3 px-4 appearance-none focus:outline-none focus:border-dota-red transition-colors" id="reg-role" required>
+                                <option value="" disabled selected>Selecciona tu rol preferido</option>
+                                <option value="carry">Pos 1: Hard Carry</option>
+                                <option value="mid">Pos 2: Mid</option>
+                                <option value="offlane">Pos 3: Offlane</option>
+                                <option value="soft-support">Pos 4: Soft Support</option>
+                                <option value="hard-support">Pos 5: Hard Support</option>
+                                <option value="flex">Flexible</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-400 text-sm font-bold mb-2" for="reg-password">
+                            Contraseña
+                        </label>
+                        <input class="w-full bg-gray-900 border border-gray-700 text-white rounded py-3 px-4 focus:outline-none focus:border-dota-red transition-colors" id="reg-password" type="password" placeholder="Crea una contraseña fuerte" required>
+                    </div>
+                    
+                    <button class="w-full bg-dota-red hover:bg-red-700 text-white font-bold py-3 px-4 rounded transition-colors btn-glow uppercase tracking-wide" type="submit">
+                        Unirse a Gamer Power
+                    </button>
+                    
+                    <p class="text-center text-sm text-gray-500 mt-6">
+                        ¿Ya tienes cuenta? <button type="button" onclick="showSection('login')" class="text-dota-gold hover:text-white font-bold">Inicia Sesión</button>
+                    </p>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-dota-darker border-t border-gray-800 py-8 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-xl font-title font-bold text-white mb-2">GAMER <span class="text-dota-red">POWER</span></h2>
+            <p class="text-gray-500 text-sm mb-4">La comunidad para verdaderos defensores del Ancestral.</p>
+            <div class="flex justify-center gap-4 text-gray-400 mb-4">
+                <!-- Simulating social icons -->
+                <a href="#" class="hover:text-white transition-colors">Discord</a>
+                <a href="#" class="hover:text-white transition-colors">Twitter (X)</a>
+                <a href="#" class="hover:text-white transition-colors">Twitch</a>
+            </div>
+            <p class="text-gray-600 text-xs">
+                © 2026 Gamer Power. Dota 2 es una marca registrada de Valve Corporation. Esta página no está afiliada a Valve.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Funciones para manejar la navegación entre secciones (SPA simple)
+        function showSection(sectionId) {
+            // 1. Ocultar todas las secciones
+            const sections = document.querySelectorAll('main > section');
+            sections.forEach(sec => {
+                sec.classList.remove('section-active');
+                sec.classList.add('section-hidden');
+            });
+
+            // 2. Mostrar la sección seleccionada
+            const activeSection = document.getElementById('section-' + sectionId);
+            if (activeSection) {
+                activeSection.classList.remove('section-hidden');
+                activeSection.classList.add('section-active');
+            }
+
+            // 3. Actualizar estado visual de los enlaces de navegación principales
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            const activeLink = document.getElementById('nav-' + sectionId);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Hacer scroll hacia arriba suavemente si se cambia de sección
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Función para el menú móvil
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
